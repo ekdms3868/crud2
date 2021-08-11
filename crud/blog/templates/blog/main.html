@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+
+{% block content%}
+<section class="content-section bg-light" id="about">
+    <div class="container px-4 px-lg-5 text-center">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-10">
+                <h2>글 목록!</h2>
+                <p class="lead mb-5">
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      Hashtag 검색
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      {% for hashtag in hashtags.all %}
+                          <a class="dropdown-item" href="{% url 'search' hashtag.id %}">{{ hashtag.name }}</a>
+                        {% endfor %}
+                    </ul>
+                  </div>
+                      <br><br>
+                    {% for posts in posts.all %}<!--posts의 모든것을 반복해라-->
+                    <p>제목 :<a href="{% url 'detail' posts.id %}">{{posts.title}}</a></p> <!--posts의 제목을 띄워라. 하이퍼링크로 달아서 detail로 이동할 수 있도록 설정.-->
+                    <p>작성자 : {{posts.writer}}</p> <!--posts의 작성자를 띄운다.-->
+                    <p>작성 일지 및 시간: {{posts.pub_date}}</p> <!--posts의 시간과 날짜를 띄운다-->
+                    {% endfor %} <!--반복문 종료-->
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}<!--블록을 끝낸다-->
